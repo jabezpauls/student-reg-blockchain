@@ -1,6 +1,7 @@
 {
-  "name": "ruban",
+  "name": "student-reg-blockchain",
   "version": "1.0.0",
+  "description": "A decentralized application for storing student information on the Ethereum blockchain",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -8,10 +9,22 @@
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
     "dev": "cd frontend && npm run dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jabezpauls/student-reg-blockchain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "solidity",
+    "react",
+    "dapp",
+    "web3",
+    "metamask",
+    "hardhat"
+  ],
+  "author": "jabezpauls",
+  "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "hardhat": "^2.26.3"

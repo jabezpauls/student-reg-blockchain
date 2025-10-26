@@ -1,6 +1,14 @@
 # Student Registry - Blockchain DApp
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![Solidity](https://img.shields.io/badge/Solidity-^0.8.20-363636.svg)](https://soliditylang.org/)
+[![Hardhat](https://img.shields.io/badge/Hardhat-2.19-yellow.svg)](https://hardhat.org/)
+[![Ethereum](https://img.shields.io/badge/Ethereum-Sepolia-blue.svg)](https://sepolia.dev/)
+
 A decentralized application (DApp) for storing student information on the Ethereum blockchain using MetaMask wallet integration.
+
+![Student Registry Demo](https://via.placeholder.com/800x400/667eea/ffffff?text=Student+Registry+Blockchain+DApp)
 
 ## Features
 
@@ -284,7 +292,7 @@ npx hardhat compile
 
 ## License
 
-ISC
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Resources
 
