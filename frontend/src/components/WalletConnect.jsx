@@ -28,6 +28,12 @@ const WalletConnect = ({ onConnect }) => {
   }, []);
 
   const checkConnection = async () => {
+    // Check if user manually disconnected
+    const wasDisconnected = localStorage.getItem('walletDisconnected');
+    if (wasDisconnected === 'true') {
+      return; // Don't auto-connect if user disconnected
+    }
+
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -62,6 +68,9 @@ const WalletConnect = ({ onConnect }) => {
     setError('');
 
     try {
+      // Clear the disconnected flag when user connects
+      localStorage.removeItem('walletDisconnected');
+
       const walletData = await connectWallet();
       setAccount(walletData.address);
       setChainId(walletData.chainId);
@@ -86,6 +95,7 @@ const WalletConnect = ({ onConnect }) => {
   };
 
   const handleDisconnect = () => {
+    localStorage.setItem('walletDisconnected', 'true');
     setAccount('');
     setChainId('');
     onConnect(null);
