@@ -75,14 +75,9 @@ function App() {
               <>
                 <div style={styles.contractInfo}>
                   <strong>Contract Address:</strong>
-                  <a
-                    href={`https://sepolia.etherscan.io/address/${contractAddress}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={styles.contractLink}
-                  >
+                  <span style={styles.contractAddress}>
                     {contractAddress}
-                  </a>
+                  </span>
                 </div>
 
                 {contract && (
@@ -197,6 +192,13 @@ const styles = {
     wordBreak: 'break-all',
     textDecoration: 'none',
     fontSize: '14px',
+  },
+  contractAddress: {
+    color: '#667eea',
+    fontFamily: 'monospace',
+    wordBreak: 'break-all',
+    fontSize: '14px',
+    fontWeight: '600',
   },
   welcome: {
     backgroundColor: '#fff',
