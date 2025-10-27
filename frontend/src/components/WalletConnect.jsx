@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { connectWallet, switchToSepolia } from '../utils/web3';
+import { connectWallet, switchToLocalhost } from '../utils/web3';
 
 const WalletConnect = ({ onConnect }) => {
   const [account, setAccount] = useState('');
@@ -7,7 +7,7 @@ const WalletConnect = ({ onConnect }) => {
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
-  const SEPOLIA_CHAIN_ID = '11155111'; // Sepolia in decimal
+  const LOCALHOST_CHAIN_ID = '1337'; // Localhost/Ganache in decimal
 
   useEffect(() => {
     // Check if already connected
@@ -66,9 +66,9 @@ const WalletConnect = ({ onConnect }) => {
       setAccount(walletData.address);
       setChainId(walletData.chainId);
 
-      // Check if on Sepolia network
-      if (walletData.chainId !== SEPOLIA_CHAIN_ID) {
-        await switchToSepolia();
+      // Check if on localhost network
+      if (walletData.chainId !== LOCALHOST_CHAIN_ID) {
+        await switchToLocalhost();
         window.location.reload();
       } else {
         onConnect(walletData);
@@ -124,9 +124,9 @@ const WalletConnect = ({ onConnect }) => {
                   <span style={styles.statusDot}></span>
                   <span style={styles.statusText}>Connected</span>
                 </div>
-                {chainId === SEPOLIA_CHAIN_ID && (
+                {chainId === LOCALHOST_CHAIN_ID && (
                   <span style={styles.networkBadge}>
-                    🌐 Sepolia Testnet
+                    🌐 Localhost (Ganache)
                   </span>
                 )}
               </div>
@@ -147,13 +147,13 @@ const WalletConnect = ({ onConnect }) => {
             </button>
           </div>
 
-          {chainId !== SEPOLIA_CHAIN_ID && (
+          {chainId !== LOCALHOST_CHAIN_ID && (
             <div style={styles.wrongNetwork}>
               <p style={styles.wrongNetworkText}>
-                ⚠️ Wrong Network! Please switch to Sepolia.
+                ⚠️ Wrong Network! Please switch to Localhost.
               </p>
-              <button onClick={() => switchToSepolia()} style={styles.switchButton}>
-                🔄 Switch to Sepolia
+              <button onClick={() => switchToLocalhost()} style={styles.switchButton}>
+                🔄 Switch to Localhost
               </button>
             </div>
           )}

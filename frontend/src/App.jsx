@@ -48,7 +48,7 @@ function App() {
     <div style={styles.app}>
       <header style={styles.header}>
         <h1 style={styles.mainTitle}>Student Registry - Blockchain App</h1>
-        <p style={styles.subtitle}>Decentralized Student Information Storage on Sepolia Testnet</p>
+        <p style={styles.subtitle}>Decentralized Student Information Storage on Local Blockchain</p>
       </header>
 
       <div style={styles.container}>
@@ -68,7 +68,7 @@ function App() {
                   style={styles.contractInput}
                 />
                 <p style={styles.hint}>
-                  Deploy the contract first using: <code>npx hardhat run scripts/deploy.js --network sepolia</code>
+                  Deploy the contract first using: <code>npm run setup</code>
                 </p>
               </div>
             ) : (
@@ -111,7 +111,7 @@ function App() {
       </div>
 
       <footer style={styles.footer}>
-        <p>Powered by Ethereum Sepolia Testnet | Built with React + Hardhat + ethers.js</p>
+        <p>Powered by Ethereum (Ganache) | Built with React + Hardhat + ethers.js</p>
       </footer>
     </div>
   );

@@ -33,11 +33,11 @@ export const connectWallet = async () => {
   }
 };
 
-export const switchToSepolia = async () => {
+export const switchToLocalhost = async () => {
   try {
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0xaa36a7' }], // Sepolia chainId in hex
+      params: [{ chainId: '0x539' }], // Localhost chainId 1337 in hex
     });
   } catch (switchError) {
     // This error code indicates that the chain has not been added to MetaMask
@@ -47,15 +47,15 @@ export const switchToSepolia = async () => {
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainId: '0xaa36a7',
-              chainName: 'Sepolia Test Network',
+              chainId: '0x539',
+              chainName: 'Localhost 8545',
               nativeCurrency: {
-                name: 'SepoliaETH',
+                name: 'Ethereum',
                 symbol: 'ETH',
                 decimals: 18
               },
-              rpcUrls: ['https://rpc.sepolia.org'],
-              blockExplorerUrls: ['https://sepolia.etherscan.io']
+              rpcUrls: ['http://127.0.0.1:8545'],
+              blockExplorerUrls: null
             }
           ]
         });

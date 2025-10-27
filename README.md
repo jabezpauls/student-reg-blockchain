@@ -4,20 +4,22 @@
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![Solidity](https://img.shields.io/badge/Solidity-^0.8.20-363636.svg)](https://soliditylang.org/)
 [![Hardhat](https://img.shields.io/badge/Hardhat-2.19-yellow.svg)](https://hardhat.org/)
-[![Ethereum](https://img.shields.io/badge/Ethereum-Sepolia-blue.svg)](https://sepolia.dev/)
+[![Ganache](https://img.shields.io/badge/Ganache-Local-orange.svg)](https://trufflesuite.com/ganache/)
 
-A decentralized application (DApp) for storing student information on the Ethereum blockchain using MetaMask wallet integration.
+A decentralized application (DApp) for storing student information on a local Ethereum blockchain using Ganache and MetaMask wallet integration. Perfect for demos and testing!
 
 ![Student Registry Demo](https://via.placeholder.com/800x400/667eea/ffffff?text=Student+Registry+Blockchain+DApp)
 
 ## Features
 
-- **Blockchain Storage**: Store student information immutably on Ethereum Sepolia testnet
-- **MetaMask Integration**: Secure wallet connection for transaction signing
+- **Local Blockchain**: Store student information on Ganache (local Ethereum blockchain)
+- **No Test ETH Needed**: Free, instant transactions for demos and testing
+- **MetaMask Integration**: Secure wallet connection and transaction signing
 - **File Hash Storage**: Calculate and store SHA-256 hashes of uploaded files on-chain
 - **View All Students**: Display all registered students from the blockchain
-- **React Frontend**: Modern, responsive UI built with React and Vite
+- **React Frontend**: Modern, responsive UI with gradient theme
 - **Solidity Smart Contract**: Secure and efficient smart contract for data management
+- **One-Command Setup**: Get everything running with `npm run setup`
 
 ## Tech Stack
 
@@ -25,12 +27,12 @@ A decentralized application (DApp) for storing student information on the Ethere
 - React 18
 - Vite (build tool)
 - ethers.js v6 (Ethereum library)
-- Vanilla CSS
+- Modern CSS with gradients
 
 ### Blockchain
 - Solidity ^0.8.20
 - Hardhat (development environment)
-- Ethereum Sepolia Testnet
+- Ganache (local blockchain)
 - MetaMask wallet
 
 ## Project Structure
@@ -65,7 +67,9 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v16 or later)
 - **npm** or **yarn**
 - **MetaMask** browser extension ([Install MetaMask](https://metamask.io/download/))
-- **Sepolia Test ETH** (Get from [Sepolia Faucet](https://sepoliafaucet.com/))
+- **Ganache** (Choose one):
+  - Ganache GUI: Download from [trufflesuite.com/ganache](https://trufflesuite.com/ganache/)
+  - Ganache CLI: `npm install -g ganache` (or use `npx ganache`)
 
 ## Installation
 
@@ -90,62 +94,73 @@ npm install
 cd ..
 ```
 
-## Configuration
+## Quick Start (3 Steps!)
 
-### 1. Set up environment variables
+### Step 1: Start Ganache
 
-Create a `.env` file in the root directory:
+Choose one option:
 
+**Option A: Ganache GUI** (Recommended for beginners)
+1. Open Ganache application
+2. Click "Quickstart Ethereum"
+3. Make sure it's running on `http://127.0.0.1:8545`
+
+**Option B: Ganache CLI**
 ```bash
-SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_ALCHEMY_API_KEY
-PRIVATE_KEY=your_wallet_private_key_here
+npx ganache --port 8545
 ```
-
-**Important**:
-- Never commit your `.env` file to version control
-- Get a free Alchemy API key from [Alchemy](https://www.alchemy.com/)
-- Export your private key from MetaMask (only use test wallets with test funds)
-
-### 2. Get Sepolia Test ETH
-
-1. Visit [Sepolia Faucet](https://sepoliafaucet.com/)
-2. Enter your wallet address
-3. Receive test ETH (needed for gas fees)
-
-## Smart Contract Deployment
-
-### 1. Compile the contract
-
+Or if installed globally:
 ```bash
-npm run compile
+ganache --port 8545
 ```
 
-This will:
-- Compile the Solidity smart contract
-- Generate ABI and bytecode
-- Copy the ABI to the frontend directory
-
-### 2. Deploy to Sepolia Testnet
-
+Or use our npm script:
 ```bash
-npm run deploy:sepolia
+npm run ganache
 ```
 
-After deployment, you'll see:
-```
-Deploying StudentRegistry contract...
-StudentRegistry deployed to: 0x1234567890123456789012345678901234567890
-Contract address saved to frontend/src/contracts/contract-address.json
+### Step 2: Setup & Deploy
+
+Run the automated setup script:
+```bash
+npm run setup
 ```
 
-**Save the contract address** - you'll need it to interact with the contract from the frontend.
+This single command will:
+- ✅ Compile the Solidity smart contract
+- ✅ Deploy to your local Ganache blockchain
+- ✅ Save the contract address
+- ✅ Copy ABI to frontend
+- ✅ Show MetaMask configuration instructions
 
-### 3. Verify deployment (optional)
+You'll see output like:
+```
+✅ Connected to network: localhost (Chain ID: 1337)
+✅ Found 10 accounts
+📝 Deploying StudentRegistry contract...
+✅ StudentRegistry deployed to: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+✅ Contract address saved
 
-Visit Sepolia Etherscan:
+📱 METAMASK SETUP INSTRUCTIONS
+[... detailed instructions ...]
 ```
-https://sepolia.etherscan.io/address/YOUR_CONTRACT_ADDRESS
-```
+
+### Step 3: Configure MetaMask
+
+Add Localhost network to MetaMask:
+1. Open MetaMask → Click network dropdown
+2. Click "Add Network" or "Add a network manually"
+3. Enter these details:
+   - **Network Name**: `Localhost 8545`
+   - **RPC URL**: `http://127.0.0.1:8545`
+   - **Chain ID**: `1337`
+   - **Currency Symbol**: `ETH`
+4. Click "Save"
+
+Import a test account (Ganache provides 10 accounts with 100 ETH each):
+1. In MetaMask → Click account icon → "Import Account"
+2. Use one of the private keys shown in Ganache
+3. Done! You now have 100 free test ETH 🎉
 
 ## Running the Application
 
@@ -162,11 +177,11 @@ This will start the frontend at `http://localhost:5173`
 1. Open the application in your browser
 2. Click "Connect MetaMask"
 3. Approve the connection in MetaMask
-4. Ensure you're on the Sepolia network (the app will prompt to switch if needed)
+4. Make sure you're on the "Localhost 8545" network (the app will prompt to switch if needed)
 
 ### 3. Enter the contract address
 
-Paste the deployed contract address from the deployment step into the input field.
+Paste the deployed contract address (shown after running `npm run setup`) into the input field.
 
 ### 4. Register students
 
@@ -219,30 +234,39 @@ Files are handled as follows:
 
 ## Gas Costs
 
-Approximate gas costs on Sepolia:
-- Contract deployment: ~800,000 gas
-- Adding a student: ~150,000 gas
-- Viewing students: Free (read-only)
+On Ganache (local blockchain):
+- **Contract deployment**: ~800,000 gas (instant, FREE!)
+- **Adding a student**: ~150,000 gas (instant, FREE!)
+- **Viewing students**: Free (read-only operation)
+
+All transactions are instant and completely free with Ganache!
 
 ## Troubleshooting
+
+### Ganache not running
+- Make sure Ganache is started on port 8545
+- Check that you can access `http://127.0.0.1:8545`
+- Try restarting Ganache
 
 ### MetaMask not detected
 - Ensure MetaMask extension is installed and enabled
 - Refresh the page after installing MetaMask
 
 ### Wrong network
-- The app will prompt you to switch to Sepolia
-- Click the "Switch to Sepolia" button
-- Approve the network switch in MetaMask
+- The app will prompt you to switch to Localhost
+- Click the "Switch to Localhost" button
+- Or manually switch to "Localhost 8545" in MetaMask
 
 ### Transaction failed
-- Ensure you have enough Sepolia ETH for gas fees
-- Check that the registration number is unique
-- Verify all required fields are filled
+- Make sure Ganache is running
+- Check that you're connected to the correct account
+- Verify the registration number is unique
+- Ensure all required fields are filled
 
 ### Contract not loading
-- Ensure the contract address is correct
-- Verify the contract is deployed on Sepolia
+- Ensure you ran `npm run setup` successfully
+- Check the contract address is correct
+- Verify Ganache is running
 - Check browser console for errors
 
 ## Development
@@ -253,34 +277,46 @@ Approximate gas costs on Sepolia:
 npx hardhat test
 ```
 
-### Local development
-
-For local blockchain testing:
+### Development workflow
 
 ```bash
-# Terminal 1 - Start local blockchain
-npx hardhat node
+# Terminal 1 - Start Ganache
+npm run ganache
 
-# Terminal 2 - Deploy to local network
-npx hardhat run scripts/deploy.js --network localhost
+# Terminal 2 - Deploy contract
+npm run setup
 
 # Terminal 3 - Start frontend
 npm run dev
 ```
 
-### Compile only
+### Compile contract only
 
 ```bash
-npx hardhat compile
+npm run compile
 ```
+
+### Deploy to Ganache manually
+
+```bash
+npm run deploy
+```
+
+## Available NPM Scripts
+
+- `npm run compile` - Compile smart contracts and copy ABI
+- `npm run setup` - Full setup: compile + deploy + configure
+- `npm run deploy` - Deploy contract to localhost
+- `npm run dev` - Start frontend development server
+- `npm run ganache` - Start Ganache CLI on port 8545
 
 ## Security Considerations
 
-- Never share your private key
-- Only use test wallets for development
-- Validate all user inputs
-- Be aware of gas costs
+- **Ganache accounts are for testing only** - Never use these private keys on mainnet or with real ETH!
+- The private keys shown by Ganache are publicly known
 - This is a demo app - not audited for production use
+- Always validate user inputs
+- Keep your production private keys secure
 
 ## Contributing
 
@@ -300,16 +336,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ethers.js Documentation](https://docs.ethers.org/)
 - [Solidity Documentation](https://docs.soliditylang.org/)
 - [MetaMask Documentation](https://docs.metamask.io/)
-- [Sepolia Faucet](https://sepoliafaucet.com/)
-- [Sepolia Etherscan](https://sepolia.etherscan.io/)
+- [Ganache Documentation](https://trufflesuite.com/docs/ganache/)
+- [React Documentation](https://react.dev/)
 
 ## Support
 
 For issues and questions:
 - Open an issue in the repository
-- Check existing documentation
-- Review Hardhat/ethers.js documentation
+- Check [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
+- Review Hardhat/ethers.js/Ganache documentation
 
 ---
 
-Built with React, Solidity, and Hardhat
+Built with ❤️ using React, Solidity, Hardhat, and Ganache

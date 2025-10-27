@@ -169,15 +169,8 @@ const StudentForm = ({ contract, onSuccess }) => {
 
         {txHash && (
           <div style={styles.success}>
-            <p>Transaction Hash:</p>
-            <a
-              href={`https://sepolia.etherscan.io/tx/${txHash}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.link}
-            >
-              {txHash}
-            </a>
+            <p><strong>Transaction Hash:</strong></p>
+            <p style={styles.txHash}>{txHash}</p>
           </div>
         )}
 
@@ -275,6 +268,15 @@ const styles = {
     color: '#667eea',
     wordBreak: 'break-all',
     fontWeight: '500',
+  },
+  txHash: {
+    fontFamily: 'monospace',
+    fontSize: '13px',
+    wordBreak: 'break-all',
+    backgroundColor: '#f8f9fa',
+    padding: '8px',
+    borderRadius: '4px',
+    margin: '8px 0 0 0',
   },
 };
 

@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "hardhat compile && node scripts/copy-abi.js",
-    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
-    "dev": "cd frontend && npm run dev"
+    "setup": "npm run compile && hardhat run scripts/setup-ganache.js --network localhost",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "dev": "cd frontend && npm run dev",
+    "ganache": "ganache --port 8545"
   },
   "repository": {
     "type": "git",
