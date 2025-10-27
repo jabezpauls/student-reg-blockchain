@@ -9,7 +9,7 @@
     "setup": "npm run compile && hardhat run scripts/setup-ganache.js --network localhost",
     "deploy": "hardhat run scripts/deploy.js --network localhost",
     "dev": "cd frontend && npm run dev",
-    "ganache": "ganache --port 8545"
+    "ganache": "ganache --port 8545 --host 127.0.0.1"
   },
   "repository": {
     "type": "git",
