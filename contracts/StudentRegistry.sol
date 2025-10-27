@@ -2,6 +2,9 @@
 pragma solidity ^0.8.20;
 
 contract StudentRegistry {
+    // Registration fee: 10 ETH
+    uint256 public constant REGISTRATION_FEE = 10 ether;
+
     struct Student {
         string name;
         string regno;
@@ -25,7 +28,8 @@ contract StudentRegistry {
         string clgname,
         string department,
         address indexed submitter,
-        uint256 timestamp
+        uint256 timestamp,
+        uint256 feePaid
     );
 
     // Add a new student
@@ -35,7 +39,8 @@ contract StudentRegistry {
         string memory _clgname,
         string memory _department,
         string memory _fileHash
-    ) public {
+    ) public payable {
+        require(msg.value >= REGISTRATION_FEE, "Registration fee of 10 ETH required");
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(bytes(_regno).length > 0, "Registration number cannot be empty");
         require(bytes(_clgname).length > 0, "College name cannot be empty");
@@ -55,7 +60,7 @@ contract StudentRegistry {
         students.push(newStudent);
         regnoToIndex[_regno] = students.length; // Store index + 1
 
-        emit StudentAdded(_regno, _name, _clgname, _department, msg.sender, block.timestamp);
+        emit StudentAdded(_regno, _name, _clgname, _department, msg.sender, block.timestamp, msg.value);
     }
 
     // Get all students

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ethers } from 'ethers';
 import { calculateFileHash } from '../utils/web3';
 
 const StudentForm = ({ contract, onSuccess }) => {
@@ -47,14 +48,17 @@ const StudentForm = ({ contract, onSuccess }) => {
         console.log('File hash:', fileHash);
       }
 
-      // Call smart contract
+      // Call smart contract with 10 ETH registration fee
       console.log('Submitting to blockchain...', formData);
       const tx = await contract.addStudent(
         formData.name,
         formData.regno,
         formData.clgname,
         formData.department,
-        fileHash
+        fileHash,
+        {
+          value: ethers.parseEther("10") // Send 10 ETH with transaction
+        }
       );
 
       console.log('Transaction sent:', tx.hash);
@@ -88,6 +92,10 @@ const StudentForm = ({ contract, onSuccess }) => {
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>Register Student</h2>
+
+      <div style={styles.feeNotice}>
+        <strong>💰 Registration Fee:</strong> 10 ETH will be deducted from your account for each registration
+      </div>
 
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.formGroup}>
@@ -195,10 +203,20 @@ const styles = {
   },
   title: {
     marginTop: 0,
-    marginBottom: '25px',
+    marginBottom: '20px',
     color: '#2c3e50',
     fontSize: '24px',
     fontWeight: '700',
+  },
+  feeNotice: {
+    backgroundColor: '#fff7e6',
+    padding: '15px 18px',
+    borderRadius: '8px',
+    marginBottom: '25px',
+    border: '1px solid #ffd666',
+    color: '#ad6800',
+    fontSize: '14px',
+    lineHeight: '1.5',
   },
   form: {
     display: 'flex',
