@@ -5,14 +5,14 @@ import StudentForm from './components/StudentForm';
 import StudentList from './components/StudentList';
 import './App.css';
 
-// Import contract ABI (you'll need to update this after deployment)
-// For now, we'll use a placeholder
+// Import contract ABI and address
 import StudentRegistryABI from './contracts/StudentRegistry.json';
+import contractAddressData from './contracts/contract-address.json';
 
 function App() {
   const [walletData, setWalletData] = useState(null);
   const [contract, setContract] = useState(null);
-  const [contractAddress, setContractAddress] = useState('');
+  const [contractAddress, setContractAddress] = useState(contractAddressData.StudentRegistry || '');
   const [refreshList, setRefreshList] = useState(0);
 
   useEffect(() => {
@@ -58,8 +58,12 @@ function App() {
           <>
             {!contractAddress ? (
               <div style={styles.contractSetup}>
-                <h3>Contract Setup</h3>
-                <p>Enter the deployed contract address:</p>
+                <h3>⚠️ Contract Not Found</h3>
+                <p>No contract address detected. Please deploy the contract first:</p>
+                <p style={styles.hint}>
+                  Run in terminal: <code>npm run setup</code>
+                </p>
+                <p style={styles.manualOverride}>Or enter address manually:</p>
                 <input
                   type="text"
                   placeholder="0x..."
@@ -67,9 +71,6 @@ function App() {
                   onChange={(e) => setContractAddress(e.target.value)}
                   style={styles.contractInput}
                 />
-                <p style={styles.hint}>
-                  Deploy the contract first using: <code>npm run setup</code>
-                </p>
               </div>
             ) : (
               <>
@@ -174,6 +175,12 @@ const styles = {
     fontSize: '14px',
     color: '#0366d6',
     border: '1px solid #c8e1ff',
+  },
+  manualOverride: {
+    marginTop: '15px',
+    fontSize: '14px',
+    color: '#666',
+    fontStyle: 'italic',
   },
   contractInfo: {
     backgroundColor: '#f6ffed',

@@ -107,14 +107,14 @@ Choose one option:
 
 **Option B: Ganache CLI**
 ```bash
-npx ganache --port 8545
+npx ganache --port 8545 --host 0.0.0.0 --network-id 1337
 ```
 Or if installed globally:
 ```bash
-ganache --port 8545
+ganache --port 8545 --host 0.0.0.0 --network-id 1337
 ```
 
-Or use our npm script:
+Or use our npm script (recommended):
 ```bash
 npm run ganache
 ```
@@ -179,9 +179,9 @@ This will start the frontend at `http://localhost:5173`
 3. Approve the connection in MetaMask
 4. Make sure you're on the "Localhost 8545" network (the app will prompt to switch if needed)
 
-### 3. Enter the contract address
+### 3. Verify contract loaded
 
-Paste the deployed contract address (shown after running `npm run setup`) into the input field.
+The contract address should load automatically. If not, paste the deployed contract address (shown after running `npm run setup`) into the input field.
 
 ### 4. Register students
 
